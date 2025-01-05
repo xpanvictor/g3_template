@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    ports:
+      - "4001:4001"
+    volumes:
+      - .:/app
+    environment:
+      - GIN_MODE=debug
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
