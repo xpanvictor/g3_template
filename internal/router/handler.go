@@ -11,6 +11,11 @@ func SetupRouter(resolver *graph.Resolver) *gin.Engine {
 	// Middleware
 	r.Use(GinContextToContextMiddleware())
 
+	// health check
+	r.GET("/health", func(ctx *gin.Context) {
+		ctx.JSON(200, gin.H{"status": "alive"})
+	})
+
 	// GraphQL endpoints
 	r.POST("/graphql", graphqlHandler(resolver))
 	if gin.Mode() != gin.ReleaseMode {

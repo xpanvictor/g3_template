@@ -7,6 +7,7 @@ package graph
 import (
 	"context"
 	"fmt"
+	"github.com/xpanvictor/g3_template.git/internal/domain/models/helpers"
 
 	"github.com/xpanvictor/g3_template.git/internal/graph/model"
 )
@@ -14,6 +15,12 @@ import (
 // CreateTodo is the resolver for the createTodo field.
 func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
 	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
+}
+
+// CreateUser is the resolver for the createUser field.
+func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
+	user, err := r.UserUseCase.CreateUser(ctx, input.Name, input.Email)
+	return helpers.MapDomainUserToGraphQL(user), err
 }
 
 // Todos is the resolver for the todos field.
@@ -30,7 +37,15 @@ func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 
 // Users is the resolver for the users field.
 func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
-	panic(fmt.Errorf("not implemented: Users - users"))
+	domainUsers, _ := r.UserUseCase.ListUsers(ctx)
+
+	users := make([]*model.User, len(domainUsers))
+
+	for i, user := range domainUsers {
+		users[i] = helpers.MapDomainUserToGraphQL(user)
+	}
+
+	return users, nil
 }
 
 // Mutation returns MutationResolver implementation.

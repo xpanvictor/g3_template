@@ -5,7 +5,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/xpanvictor/g3_template.git/bootstrap"
+	"github.com/xpanvictor/g3_template.git/internal/domain/models"
 	"github.com/xpanvictor/g3_template.git/internal/graph"
+	"github.com/xpanvictor/g3_template.git/internal/repositories/mongodb"
 	"github.com/xpanvictor/g3_template.git/internal/router"
 	"github.com/xpanvictor/g3_template.git/internal/usecases"
 	"log"
@@ -23,13 +25,14 @@ func main() {
 	defer app.CleanUp()
 
 	env := app.Env
-	//db := app.Mongo.Database(env.DBName)
+	db := app.Mongo.Database(env.DBName)
 
 	// ctx management
 	//timeout := time.Duration(env.ContextTimeout) * time.Second
 
+	userRepo := mongodb.NewUserRepository(db, models.UserCollection)
 	resolver := &graph.Resolver{
-		UserUseCase: usecases.NewUserUsercase(),
+		UserUseCase: usecases.NewUserUseCase(userRepo),
 	}
 
 	rt := router.SetupRouter(resolver)

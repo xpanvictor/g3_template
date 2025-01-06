@@ -8,7 +8,7 @@ exec:
   layout: single-file # Only other option is "follow-schema," ie multi-file.
 
   # Only for single-file layout:
-  filename: internal/graph/generated.ko
+  filename: internal/graph/generated.go
 
   # Only for follow-schema layout:
   # dir: graph
