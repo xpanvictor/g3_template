@@ -4,8 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"github.com/xpanvictor/g3_template.git/bootstrap"
+	"github.com/xpanvictor/g3_template.git/internal/graph"
+	"github.com/xpanvictor/g3_template.git/internal/router"
+	"github.com/xpanvictor/g3_template.git/internal/usecases"
 	"log"
 	"net/http"
 	"os"
@@ -26,11 +28,15 @@ func main() {
 	// ctx management
 	//timeout := time.Duration(env.ContextTimeout) * time.Second
 
-	g := gin.Default()
+	resolver := &graph.Resolver{
+		UserUseCase: usecases.NewUserUsercase(),
+	}
+
+	rt := router.SetupRouter(resolver)
 
 	srv := &http.Server{
 		Addr:    env.ServerAddress,
-		Handler: g.Handler(),
+		Handler: rt,
 	}
 
 	go func() {

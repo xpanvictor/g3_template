@@ -1,6 +1,6 @@
 # Where are all the schema files located? globs are supported eg  src/**/*.graphqls
 schema:
-  - internal/graph/*.graphqls
+  - internal/graph/schemas/*.graphqls
 
 # Where should the generated server code go?
 exec:
@@ -8,7 +8,7 @@ exec:
   layout: single-file # Only other option is "follow-schema," ie multi-file.
 
   # Only for single-file layout:
-  filename: internal/graph/generated.go
+  filename: internal/graph/generated.ko
 
   # Only for follow-schema layout:
   # dir: graph

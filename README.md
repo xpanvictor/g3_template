@@ -1,4 +1,15 @@
 # Go backend template
+
+## Usage
+```bash
+chmod +x ./scripts/setup.sh
+./setup.sh github.com/<username>/<module-name>
+
+# run dev server after setting up permission
+./scripts/runDevServer # uses docker compose
+```
+
+## Flow
 - [x] Project Setup  
   - Initialize a Go project.  
   - Add required modules and libraries for:   
