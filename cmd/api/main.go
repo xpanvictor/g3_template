@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/xpanvictor/g3_template.git/bootstrap"
 	"github.com/xpanvictor/g3_template.git/internal/domain/models"
-	"github.com/xpanvictor/g3_template.git/internal/graph"
+	"github.com/xpanvictor/g3_template.git/internal/graph/resolvers"
 	"github.com/xpanvictor/g3_template.git/internal/repositories/mongodb"
 	"github.com/xpanvictor/g3_template.git/internal/router"
 	"github.com/xpanvictor/g3_template.git/internal/usecases"
@@ -31,7 +31,7 @@ func main() {
 	//timeout := time.Duration(env.ContextTimeout) * time.Second
 
 	userRepo := mongodb.NewUserRepository(db, models.UserCollection)
-	resolver := &graph.Resolver{
+	resolver := &resolvers.Resolver{
 		UserUseCase: usecases.NewUserUseCase(userRepo),
 	}
 

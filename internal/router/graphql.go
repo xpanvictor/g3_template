@@ -6,6 +6,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/gin-gonic/gin"
 	"github.com/xpanvictor/g3_template.git/internal/graph"
+	"github.com/xpanvictor/g3_template.git/internal/graph/resolvers"
 )
 
 // Defining middleware for GraphQL
@@ -18,7 +19,7 @@ func GinContextToContextMiddleware() gin.HandlerFunc {
 }
 
 // GraphQL handler
-func graphqlHandler(resolver *graph.Resolver) gin.HandlerFunc {
+func graphqlHandler(resolver *resolvers.Resolver) gin.HandlerFunc {
 	h := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{
 		Resolvers:  resolver,
 		Directives: graph.DirectiveRoot{},

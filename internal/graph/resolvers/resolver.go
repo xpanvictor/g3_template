@@ -1,4 +1,4 @@
-package graph
+package resolvers
 
 import "github.com/xpanvictor/g3_template.git/internal/usecases"
 
